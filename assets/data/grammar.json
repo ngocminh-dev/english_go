@@ -1,0 +1,122 @@
+[
+  {
+    "level": "Beginner",
+    "title": "Present Simple Tense",
+    "explanation": "Diễn tả sự thật hiển nhiên, thói quen hoặc lịch trình.",
+    "example": "She goes to school every day."
+  },
+  {
+    "level": "Beginner",
+    "title": "Present Continuous Tense",
+    "explanation": "Diễn tả hành động đang xảy ra tại thời điểm nói.",
+    "example": "He is studying English now."
+  },
+  {
+    "level": "Beginner",
+    "title": "Past Simple Tense",
+    "explanation": "Diễn tả hành động đã xảy ra và kết thúc trong quá khứ.",
+    "example": "I visited Hanoi last summer."
+  },
+  {
+    "level": "Beginner",
+    "title": "Future Simple Tense",
+    "explanation": "Diễn tả hành động sẽ xảy ra trong tương lai.",
+    "example": "She will travel to Paris next year."
+  },
+  {
+    "level": "Beginner",
+    "title": "There is / There are",
+    "explanation": "Diễn tả sự tồn tại của ai đó hoặc vật gì đó.",
+    "example": "There are many books on the table."
+  },
+  {
+    "level": "Beginner",
+    "title": "Modal Verbs: Can",
+    "explanation": "Diễn tả khả năng hoặc xin phép.",
+    "example": "I can swim very well."
+  },
+  {
+    "level": "Beginner",
+    "title": "Countable and Uncountable Nouns",
+    "explanation": "Danh từ đếm được và không đếm được.",
+    "example": "I have some apples and some water."
+  },
+  {
+    "level": "Intermediate",
+    "title": "Present Perfect Tense",
+    "explanation": "Diễn tả hành động xảy ra trong quá khứ nhưng ảnh hưởng tới hiện tại.",
+    "example": "I have finished my homework."
+  },
+  {
+    "level": "Intermediate",
+    "title": "Past Perfect Tense",
+    "explanation": "Diễn tả hành động đã hoàn thành trước một hành động khác trong quá khứ.",
+    "example": "She had left before I arrived."
+  },
+  {
+    "level": "Intermediate",
+    "title": "Future Perfect Tense",
+    "explanation": "Diễn tả hành động sẽ hoàn thành trước một thời điểm trong tương lai.",
+    "example": "I will have graduated by next year."
+  },
+  {
+    "level": "Intermediate",
+    "title": "Conditional Sentences Type 1",
+    "explanation": "Diễn tả điều kiện có thật ở hiện tại hoặc tương lai.",
+    "example": "If it rains, we will cancel the trip."
+  },
+  {
+    "level": "Intermediate",
+    "title": "Conditional Sentences Type 2",
+    "explanation": "Diễn tả điều kiện không có thật ở hiện tại.",
+    "example": "If I were you, I would take that job."
+  },
+  {
+    "level": "Intermediate",
+    "title": "Relative Clauses",
+    "explanation": "Mệnh đề quan hệ dùng để bổ nghĩa cho danh từ.",
+    "example": "The book that you gave me is interesting."
+  },
+  {
+    "level": "Intermediate",
+    "title": "Passive Voice",
+    "explanation": "Nhấn mạnh đối tượng bị tác động, không nhấn mạnh chủ thể.",
+    "example": "The cake was made by my mother."
+  },
+  {
+    "level": "Intermediate",
+    "title": "Reported Speech",
+    "explanation": "Tường thuật lại lời nói của người khác.",
+    "example": "He said that he was busy."
+  },
+  {
+    "level": "Advanced",
+    "title": "Inversion",
+    "explanation": "Đảo ngữ để nhấn mạnh trong câu.",
+    "example": "Never have I seen such a beautiful place."
+  },
+  {
+    "level": "Advanced",
+    "title": "Cleft Sentences",
+    "explanation": "Nhấn mạnh một thành phần cụ thể của câu.",
+    "example": "It was Tom who broke the window."
+  },
+  {
+    "level": "Advanced",
+    "title": "Conditional Sentences Type 3",
+    "explanation": "Diễn tả điều kiện không có thật trong quá khứ.",
+    "example": "If I had studied harder, I would have passed the exam."
+  },
+  {
+    "level": "Advanced",
+    "title": "Mixed Conditionals",
+    "explanation": "Kết hợp điều kiện giữa các thời khác nhau.",
+    "example": "If I had won the lottery, I would be rich now."
+  },
+  {
+    "level": "Advanced",
+    "title": "Subjunctive Mood",
+    "explanation": "Câu giả định, bày tỏ mong muốn hoặc đề xuất.",
+    "example": "I suggest that he study harder."
+  }
+]
