@@ -1,3 +1,4 @@
+import 'package:english_go/services/text_to_speech_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/vocabulary_provider.dart';
@@ -62,7 +63,6 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
             onTap: () async {
               final definition = await DictionaryService.fetchDefinition(word);
               final vietnamese = await DictionaryService.translateToVietnamese(word);
-
               showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
@@ -72,6 +72,8 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
                   ),
                 ),
               );
+              await TextToSpeechService.speakEnglish("$word. $definition");
+              await TextToSpeechService.speakVietnamese("$word. $vietnamese");
             },
             child: Card(
               shape: RoundedRectangleBorder(
