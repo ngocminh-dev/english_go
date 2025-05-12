@@ -5,8 +5,11 @@ import '../providers/vocabulary_provider.dart';
 import '../services/dictionary_api.dart';
 import '../services/image_api.dart';
 import '../services/vocabulary_api.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class VocabularyScreen extends ConsumerStatefulWidget {
+  const VocabularyScreen({super.key});
+
   @override
   ConsumerState<VocabularyScreen> createState() => _VocabularyScreenState();
 }
@@ -14,6 +17,9 @@ class VocabularyScreen extends ConsumerStatefulWidget {
 class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
   List<String> words = [];
   bool isLoading = true;
+  bool isListening = false;
+  String spokenText = '';
+  stt.SpeechToText speech = stt.SpeechToText();
 
   @override
   void initState() {
@@ -27,6 +33,55 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
       words = fetchedWords;
       isLoading = false;
     });
+  }
+
+  Future<void> startListening() async {
+    bool available = await speech.initialize();
+    if (available) {
+      setState(() {
+        isListening = true;
+      });
+      speech.listen(
+        onResult: (result) {
+          setState(() {
+            spokenText = result.recognizedWords.trim().toLowerCase();
+            isListening = false;
+          });
+        },
+        localeId: 'en_US',
+      );
+    }
+  }
+
+  void checkPronunciation(String word) {
+    showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text("Phát âm của bạn"),
+          content: spokenText.isNotEmpty
+              ? Text("Bạn đã nói: \"$spokenText\"")
+              : const Text("Không nghe thấy gì!"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                if (spokenText.trim().toLowerCase() == word.trim().toLowerCase()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("🎉 Chính xác!")),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("❌ Bạn đã nói: \"$spokenText\"")),
+                  );
+                }
+              },
+              child: const Text("Đóng"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -61,19 +116,40 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
 
           return GestureDetector(
             onTap: () async {
-              final definition = await DictionaryService.fetchDefinition(word);
-              final vietnamese = await DictionaryService.translateToVietnamese(word);
+              final definition =
+              await DictionaryService.fetchDefinition(word);
+              final vietnamese =
+              await DictionaryService.translateToVietnamese(word);
               showDialog(
                 context: context,
                 builder: (_) => AlertDialog(
                   title: Text(word),
-                  content: Text(
-                    "📘 Tiếng Anh: ${definition ?? "Không có dữ liệu."}\n\n🇻🇳 Tiếng Việt: ${vietnamese ?? "Không có dữ liệu."}",
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "📘 Tiếng Anh: ${definition ?? "Không có dữ liệu."}\n\n🇻🇳 Tiếng Việt: ${vietnamese ?? "Không có dữ liệu."}",
+                      ),
+                      const SizedBox(height: 20),
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.mic),
+                        label: const Text("Thử phát âm"),
+                        onPressed: () {
+                          startListening();
+                          // Chờ kết quả và so sánh với từ
+                          Future.delayed(const Duration(seconds: 3), () {
+                            checkPronunciation(word); // Truyền từ vào
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ),
               );
-              await TextToSpeechService.speakEnglish("$word. $definition");
-              await TextToSpeechService.speakVietnamese("$word. $vietnamese");
+              await TextToSpeechService.speakEnglish(
+                  "$word. $definition");
+              await TextToSpeechService.speakVietnamese(
+                  "$word. $vietnamese");
             },
             child: Card(
               shape: RoundedRectangleBorder(
@@ -88,9 +164,11 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
                     child: FutureBuilder<String?>(
                       future: ImageApi.fetchImageUrl(word),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const CircularProgressIndicator();
-                        } else if (snapshot.hasData && snapshot.data != null) {
+                        } else if (snapshot.hasData &&
+                            snapshot.data != null) {
                           return ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: Image.network(
@@ -119,7 +197,9 @@ class _VocabularyScreenState extends ConsumerState<VocabularyScreen> {
                       isFavorite ? Icons.favorite : Icons.favorite_border,
                       color: isFavorite ? Colors.red : Colors.grey,
                     ),
-                    onPressed: () => ref.read(favoriteWordsProvider.notifier).toggleFavorite(word),
+                    onPressed: () => ref
+                        .read(favoriteWordsProvider.notifier)
+                        .toggleFavorite(word),
                   )
                 ],
               ),

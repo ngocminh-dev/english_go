@@ -1,37 +1,42 @@
-// main.dart
-import 'package:english_go/screens/favorite_screen.dart';
-import 'package:english_go/screens/grammar_screen.dart';
-import 'package:english_go/screens/home_screen.dart';
-import 'package:english_go/screens/quiz_screen.dart';
-import 'package:english_go/screens/vocabulary_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'providers/theme_provider.dart';
 import 'theme.dart';
+import 'screens/home_screen.dart';
+import 'screens/vocabulary_screen.dart';
+import 'screens/grammar_screen.dart';
+import 'screens/quiz_screen.dart';
+import 'screens/favorite_screen.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(
-    const ProviderScope(
+    const ProviderScope( // BẮT BUỘC để Riverpod hoạt động
       child: MyApp(),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeProvider);
+
     return MaterialApp(
       title: 'Học Tiếng Anh',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeMode,
       initialRoute: '/',
       routes: {
-        '/': (context) =>  HomeScreen(),
+        '/': (context) => const HomeScreen(),
         '/vocabulary': (context) =>  VocabularyScreen(),
-        '/grammar': (context) =>  GrammarScreen(),
+        '/grammar': (context) => const GrammarScreen(),
         '/quiz': (context) =>  QuizScreen(),
-        '/favorites': (context) =>  FavoriteScreen(),
+        '/favorites': (context) => const FavoriteScreen(),
       },
     );
   }

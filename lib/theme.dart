@@ -11,7 +11,7 @@ class AppTheme {
     brightness: Brightness.light,
     primaryColor: primary,
     scaffoldBackgroundColor: background,
-    fontFamily: 'Poppins',  // Font rất đẹp, hiện đại
+    fontFamily: 'Poppins',
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
         fontSize: 28,
@@ -68,4 +68,67 @@ class AppTheme {
       shadowColor: Colors.black12,
     ),
   );
+  static ThemeData darkTheme = ThemeData(
+    brightness: Brightness.dark,
+    primaryColor: primary,
+    scaffoldBackgroundColor: const Color(0xFF121212),
+    fontFamily: 'Poppins',
+    textTheme: const TextTheme(
+      headlineLarge: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.w700,
+        color: Colors.white,
+      ),
+      bodyLarge: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+        color: Colors.white70,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: Colors.white60,
+      ),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Color(0xFF1F1F1F),
+      elevation: 0,
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+      ),
+      iconTheme: IconThemeData(color: Colors.white),
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: secondary,
+      elevation: 6,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: secondary,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        textStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        elevation: 4,
+      ),
+    ),
+    cardTheme: CardTheme(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(18),
+      ),
+      color: const Color(0xFF1E1E1E),
+      elevation: 5,
+      shadowColor: Colors.black54,
+    ),
+  );
+
 }
+

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:english_go/providers/theme_provider.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   late stt.SpeechToText _speech;
   late FlutterTts _tts;
   bool _isListening = false;
@@ -28,10 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     bool available = await _speech.initialize();
 
     if (available) {
-      // Lấy danh sách locale có sẵn
       final locales = await _speech.locales();
-
-      // Tìm locale tiếng Việt nếu có, fallback sang locale đầu tiên nếu không tìm thấy
       final vietnameseLocale = locales.firstWhere(
             (locale) => locale.localeId.contains('vi'),
         orElse: () => locales.first,
@@ -40,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() => _isListening = true);
 
       _speech.listen(
+        localeId: vietnameseLocale.localeId,
         onResult: (result) {
           if (result.finalResult) {
             setState(() {
@@ -49,15 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
       );
-
     } else {
       debugPrint("Speech recognition không khả dụng trên thiết bị này.");
     }
   }
 
-
   Future<void> _speak(String text) async {
-    await _tts.stop(); // đảm bảo không bị lặp lại
+    await _tts.stop();
     await _tts.speak(text);
   }
 
@@ -85,6 +83,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeMode = ref.watch(themeProvider);
+    final isDark = themeMode == ThemeMode.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Ứng dụng học tiếng Anh"),
@@ -93,7 +94,13 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(_isListening ? Icons.hearing : Icons.mic),
             tooltip: "Điều khiển bằng giọng nói",
             onPressed: _startListening,
-          )
+          ),
+          IconButton(
+            icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
+            onPressed: () {
+              ref.read(themeProvider.notifier).toggleTheme();
+            },
+          ),
         ],
       ),
       body: Padding(
@@ -162,10 +169,12 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildAnimatedMenuCard(BuildContext context,
-      {required IconData icon,
+  Widget _buildAnimatedMenuCard(
+      BuildContext context, {
+        required IconData icon,
         required String label,
-        required VoidCallback onTap}) {
+        required VoidCallback onTap,
+      }) {
     return InkWell(
       borderRadius: BorderRadius.circular(25),
       onTap: onTap,
