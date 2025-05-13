@@ -46,24 +46,24 @@ flutter run
 ## 🏢 Cấu trúc thư mục
 
 ```
-lib/
+lib
 ├── main.dart
-├── theme.dart
-├── screens/
+├── providers
+│   ├── theme_provider.dart
+│   └── vocabulary_provider.dart
+├── screens
 │   ├── favorite_screen.dart
 │   ├── grammar_screen.dart
 │   ├── home_screen.dart
 │   ├── quiz_screen.dart
 │   └── vocabulary_screen.dart
-├── services/
+├── services
 │   ├── dictionary_api.dart
 │   ├── grammar_service.dart
 │   ├── image_api.dart
+│   ├── text_to_speech_service.dart
 │   └── vocabulary_api.dart
-└── providers/
-    └── vocabulary_provider.dart
- 
-```
+└── theme.dart
 
 ---
 
