@@ -64,7 +64,7 @@ lib
 │   ├── text_to_speech_service.dart
 │   └── vocabulary_api.dart
 └── theme.dart
-
+```
 ---
 
 ## 🔧 Build Release (Android)
